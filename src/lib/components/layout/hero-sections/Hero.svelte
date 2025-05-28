@@ -38,6 +38,7 @@
 
 	// Constants
 	import { cta } from "$lib/navigation";
+	import { navHeight } from "$lib/state/nav.svelte";
 
 	function handleImageError(e: Event) {
 		const target = e.currentTarget as HTMLImageElement;
@@ -106,7 +107,11 @@
 	});
 </script>
 
-<div class={videoSrc ? "relative min-h-screen overflow-hidden" : "bg-[#FAF5EC]"} {...rest}>
+<div 
+	class={videoSrc ? "relative overflow-hidden" : "bg-[#FAF5EC]"} 
+	style:min-height={videoSrc ? `calc(100vh - ${navHeight.current}px)` : undefined}
+	{...rest}
+>
 	{#if videoSrc}
 		<!-- Video Background -->
 		<video
@@ -120,16 +125,20 @@
 		</video>
 		
 		<!-- Black Overlay -->
-		<div class="absolute inset-0 bg-black/50"></div>
+		<div class="absolute inset-0 bg-black/40"></div>
+		
+		<!-- Top gradient for nav readability -->
+		<div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent"></div>
 	{/if}
 
 	<header
 		class={[
 			videoSrc 
-				? "relative z-10 flex min-h-screen items-end justify-start px-8 pb-16 text-left"
+				? "relative z-10 flex items-end justify-start px-8 pb-16 text-left"
 				: "section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
 			!videoSrc && centered ? "place-items-center text-center" : !videoSrc ? " xl:grid-cols-[1fr_auto]" : ""
 		]}
+		style:min-height={videoSrc ? `calc(100vh - ${navHeight.current}px)` : undefined}
 		data-enter-container
 	>
 		<div class={videoSrc ? "max-w-4xl" : "grid gap-6"} class:max-w-prose={!videoSrc && centered}>
