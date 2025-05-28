@@ -5,7 +5,7 @@
 		position: string;
 		company: string;
 		quote: string;
-		image: string; // a 9/16 portrait image of a person
+		image?: string; // Optional now since we're removing images
 	};
 
 	// Props
@@ -13,212 +13,119 @@
 
 	// State
 	let current = $state(0);
-	let scrollProgress = $state(0);
-	let wrapperRef: HTMLElement;
-	let carouselRef: HTMLElement;
-	let maxScrollDistance = $state(0);
+	let intervalId: number;
 
 	import { onMount } from "svelte";
 
 	onMount(() => {
-		// Preload images
-		testimonials.forEach((testimonial) => {
-			if (testimonial.image) {
-				const img = new Image();
-				img.loading = "lazy";
-				img.src = testimonial.image;
-			}
-		});
-
-		// Calculate the max scroll distance for translation
-		const updateDimensions = () => {
-			if (!carouselRef) return;
-
-			// Get all cards and container measurements
-			const cards = Array.from(carouselRef.querySelectorAll("article"));
-			if (!cards.length) return;
-
-			// Get the total width of all content including gaps
-			const carouselWidth = carouselRef.scrollWidth;
-			// Get the viewport width
-			const viewportWidth = window.innerWidth;
-			// Get the width of the last card
-			const lastCard = cards[cards.length - 1];
-			const lastCardWidth = lastCard.offsetWidth;
-
-			// Get computed styles to account for gaps and padding
-			const style = getComputedStyle(carouselRef);
-			const gapStr = style.gap || style.columnGap || "0px";
-			const gapValue = parseInt(gapStr, 10) || 0;
-
-			// To ensure the last card is fully visible at the end of the scroll,
-			// we need to make sure the last card's right edge aligns with the viewport's right edge
-			// This means the maximum distance we need to translate is:
-			// (total carousel width - viewport width)
-			// If this value is negative or zero, no scrolling is needed
-			maxScrollDistance = Math.max(0, carouselWidth - viewportWidth);
-
-			// Ensure we can see the last card fully
-			// This extra adjustment ensures the last card is properly positioned at the end of the scroll
-			if (maxScrollDistance > 0) {
-				// Add a larger buffer for more breathing room at the right edge
-				// This accounts for any padding or margin that might affect positioning
-				const buffer = 0; // 4rem buffer instead of 1rem
-				maxScrollDistance += buffer;
-			}
-
-			if (maxScrollDistance <= 0) {
-				console.info("Content fits in viewport, no scrolling needed");
-			}
-		};
-
-		// Track vertical scroll position and convert to horizontal scroll
-		let ticking = false;
-		const handleScroll = () => {
-			if (ticking) return;
-			ticking = true;
-
-			requestAnimationFrame(() => {
-				if (!wrapperRef) return;
-
-				const rect = wrapperRef.getBoundingClientRect();
-				const sectionHeight = rect.height;
-				const viewportHeight = window.innerHeight;
-
-				// Calculate progress (0-1)
-				let progress = 0;
-				if (rect.top <= 0) {
-					progress = Math.min(Math.abs(rect.top) / (sectionHeight - viewportHeight), 1);
-				}
-
-				scrollProgress = progress;
-				current = Math.min(Math.floor(progress * testimonials.length), testimonials.length - 1);
-				ticking = false;
-			});
-		};
-
-		// Debounce resize handler for better performance
-		let resizeTimer: number;
-		const handleResize = () => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => {
-				updateDimensions();
-				handleScroll();
-			}, 100);
-		};
-
-		// Initialize and set up listeners
-		updateDimensions();
-		window.addEventListener("resize", handleResize);
-		window.addEventListener("scroll", handleScroll);
-		setTimeout(() => {
-			updateDimensions(); // Run once more after DOM is settled
-			handleScroll();
-		}, 100);
+		// Auto-rotate testimonials every 4 seconds
+		intervalId = setInterval(() => {
+			current = (current + 1) % testimonials.length;
+		}, 4000);
 
 		return () => {
-			window.removeEventListener("resize", handleResize);
-			window.removeEventListener("scroll", handleScroll);
-			clearTimeout(resizeTimer);
+			clearInterval(intervalId);
 		};
 	});
+
+	// Manual navigation functions
+	function goToTestimonial(index: number) {
+		current = index;
+		// Reset the interval
+		clearInterval(intervalId);
+		intervalId = setInterval(() => {
+			current = (current + 1) % testimonials.length;
+		}, 4000);
+	}
 </script>
 
 <section
-	bind:this={wrapperRef}
-	class="text-pretty [--gap:--spacing(4)] relative overflow-hidden"
-	style="height: calc(100vh * {testimonials.length});"
+	class="section-py relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-muted/20"
 	{...rest}
 >
-	<!-- Dramatic Background Image -->
-	<div 
-		class="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
-		style:background-image="url('/generated/image-a-majestic-view-of-snow-capped-mountain-.webp')"
-	></div>
-	
-	<!-- Black Overlay -->
-	<div class="absolute inset-0 bg-black/70"></div>
+	<!-- Subtle geometric pattern overlay -->
+	<div class="absolute inset-0 opacity-[0.02]">
+		<svg class="h-full w-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+					<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+				</pattern>
+			</defs>
+			<rect width="100" height="100" fill="url(#grid)" />
+		</svg>
+	</div>
 
-	<div
-		class="section-py section-px sticky top-0 flex min-h-screen w-full items-center overflow-hidden relative z-10"
-	>
-		<div
-			bind:this={carouselRef}
-			class={[
-				"flex w-full gap-(--card-gap) pr-8 [--card-gap:--spacing(6)]",
-				"[--inner-radius:calc(var(--outer-radius)-var(--gap))] [--outer-radius:var(--radius)] lg:[--outer-radius:var(--radius-xl)]"
-			]}
-		>
-			{#each testimonials as testimonial}
+	<div class="section-px container mx-auto relative z-10">
+		<!-- Section Header -->
+		<div class="text-center mb-16">
+			<h2 class="text-title1 text-foreground mb-4">Trusted by teams who hire with confidence</h2>
+			<p class="text-body text-foreground/60 max-w-2xl mx-auto">
+				See how Dex transforms hiring for companies and candidates alike
+			</p>
+		</div>
+
+		<!-- Testimonials Grid -->
+		<div class="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+			{#each testimonials as testimonial, index}
 				<article
-					class={[
-						"lg:container-xs  lg:min-w-[50%] lg:grid-cols-[2fr_3fr]",
-						"items-between grid grid-cols-1 gap-8",
-						"bg-black/40 backdrop-blur-sm text-white border-white/20",
-						"aspect-video max-w-full min-w-full xl:aspect-[auto]",
-						"transform-gpu transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform",
-						"rounded-(--outer-radius) p-(--gap)",
-						"border contain-layout shadow-2xl"
-					]}
-					style:transform="translateX(calc(-{scrollProgress} * {maxScrollDistance}px))"
+					class="group relative bg-card border border-border rounded-2xl p-8 transition-all duration-500 ease-out hover:shadow-lg hover:border-border/80 hover:-translate-y-1"
+					class:ring-2={current === index}
+					class:ring-primary={current === index}
+					class:ring-offset-2={current === index}
+					class:ring-offset-background={current === index}
+					class:scale-[1.02]={current === index}
+					class:shadow-xl={current === index}
 				>
-					<div class="hidden overflow-clip rounded-[max(var(--inner-radius),2px)] lg:block">
-						{#if testimonial.image}
-							<img
-								src={testimonial.image}
-								alt="{testimonial.name} testimonial"
-								loading="lazy"
-								class="aspect-[3/4] h-full w-full object-cover border-2 border-white/30"
-							/>
-						{/if}
-					</div>
-					<div class="flex flex-col justify-between gap-12">
-						<q class="text-title2 max-w-prose text-white drop-shadow-md">{testimonial.quote}</q>
-						<cite class="text-caption flex items-center gap-3 not-italic">
-							{#if testimonial.image}
-								<img
-									src={testimonial.image}
-									alt="{testimonial.name} testimonial"
-									loading="lazy"
-									class="size-12 rounded-full object-cover lg:hidden border-2 border-white/30"
-								/>
-							{/if}
-							<div>
-								<p class="text-callout text-white font-semibold">{testimonial.name}</p>
-								<p class="text-white/70">
+					<!-- Quote -->
+					<blockquote class="text-body text-foreground/90 mb-8 leading-relaxed">
+						"{testimonial.quote}"
+					</blockquote>
+
+					<!-- Attribution -->
+					<footer class="flex items-center gap-4">
+						<!-- Avatar placeholder with initials -->
+						<div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center border border-primary/20">
+							<span class="text-sm font-semibold text-primary">
+								{testimonial.name.split(' ').map(n => n[0]).join('')}
+							</span>
+						</div>
+						
+						<div>
+							<cite class="not-italic">
+								<p class="font-semibold text-foreground">{testimonial.name}</p>
+								<p class="text-sm text-foreground/60">
 									{testimonial.position}, {testimonial.company}
 								</p>
-							</div>
-						</cite>
+							</cite>
+						</div>
+					</footer>
+
+					<!-- Subtle corner accent -->
+					<div class="absolute top-6 right-6 w-8 h-8 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" fill="currentColor"/>
+						</svg>
 					</div>
 				</article>
 			{/each}
-			<!-- Empty spacer to ensure last card has breathing room -->
-			<div class="min-w-(--gap) lg:min-w-[calc(var(--gap)*3)]"></div>
 		</div>
 
-		<!-- Pagination Indicators -->
-		<div class="absolute bottom-8 left-1/2 flex -translate-x-1/2 justify-center gap-2">
+		<!-- Navigation Dots -->
+		<div class="flex justify-center gap-3 mt-12">
 			{#each testimonials as _, index}
-				<div
-					class="bg-white/40 size-1.5 rounded-full transition-all duration-300 ease-in-out backdrop-blur-sm"
-					class:opacity-50={current !== index}
-					class:w-8={current === index}
-					class:bg-white={current === index}
-					aria-hidden="true"
-				></div>
+				<button
+					class="w-3 h-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+					class:bg-primary={current === index}
+					class:scale-125={current === index}
+					class:bg-border={current !== index}
+					class:hover:bg-border/80={current !== index}
+					aria-label="View testimonial {index + 1}"
+					onclick={() => goToTestimonial(index)}
+				></button>
 			{/each}
 		</div>
+
+		<!-- Subtle bottom accent -->
+		<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
 	</div>
 </section>
-
-<style>
-	/* Hide scrollbar while preserving functionality */
-	.hide-scrollbar {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-	}
-	.hide-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-</style>
