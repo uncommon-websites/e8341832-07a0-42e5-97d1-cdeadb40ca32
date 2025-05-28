@@ -26,12 +26,15 @@
     - `subtitle`: Supporting text (string)
     - `imageSrc`: Hero image URL (string)
     - `callsToAction`: CTA buttons array (max two: primary, secondary)
+    - `withSymbols`: Show colorful orange symbols instead of image (boolean)
 -->
 
 <script lang="ts">
 	// Components
 	import AnimateText from "$lib/components/animation/AnimateText.svelte";
 	import Button from "$lib/components/ui/Button.svelte";
+	import { onMount } from "svelte";
+	import { animate, stagger } from "motion";
 
 	// Constants
 	import { cta } from "$lib/navigation";
@@ -47,6 +50,7 @@
 		title: string;
 		subtitle: string;
 		imageSrc?: string;
+		withSymbols?: boolean;
 		callsToAction?: Array<{
 			href: string;
 			label: string;
@@ -57,13 +61,50 @@
 		title,
 		subtitle,
 		imageSrc,
+		withSymbols = false,
 		callsToAction = [cta],
 		centered = false,
 		...rest
 	}: Props = $props();
+
+	let symbolElements: HTMLElement[] = $state([]);
+
+	const symbols = [
+		{ icon: "🎯", color: "#FF6B35", size: "text-4xl" },
+		{ icon: "⚡", color: "#FF8C42", size: "text-5xl" },
+		{ icon: "🚀", color: "#FF9F1C", size: "text-3xl" },
+		{ icon: "💡", color: "#FFB627", size: "text-4xl" },
+		{ icon: "🔥", color: "#FF6B35", size: "text-5xl" },
+		{ icon: "⭐", color: "#FF8C42", size: "text-3xl" },
+		{ icon: "🎪", color: "#FF9F1C", size: "text-4xl" },
+		{ icon: "🎨", color: "#FFB627", size: "text-3xl" },
+		{ icon: "🌟", color: "#FF6B35", size: "text-5xl" },
+		{ icon: "🎭", color: "#FF8C42", size: "text-4xl" }
+	];
+
+	onMount(() => {
+		if (withSymbols && symbolElements.length > 0) {
+			animate(
+				symbolElements,
+				{
+					scale: [0, 1],
+					rotate: [0, 360],
+					opacity: [0, 1]
+				},
+				{
+					duration: 0.8,
+					ease: "easeOut",
+					delay: stagger(0.1, {
+						startDelay: 0.3,
+						ease: "easeInOut"
+					})
+				}
+			);
+		}
+	});
 </script>
 
-<div class="bg-background" {...rest}>
+<div class="bg-[#FAF5EC]" {...rest}>
 	<header
 		class={[
 			"section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
@@ -112,7 +153,7 @@
 		{/if}
 	</header>
 
-	{#if imageSrc}
+	{#if imageSrc && !withSymbols}
 		<div class="col-span-full aspect-video" data-enter>
 			<img
 				src={imageSrc}
@@ -120,6 +161,52 @@
 				class="size-full object-cover"
 				onerror={handleImageError}
 			/>
+		</div>
+	{/if}
+
+	{#if withSymbols}
+		<div class="relative mt-12 overflow-hidden py-20" data-enter>
+			<!-- Background pattern -->
+			<div class="absolute inset-0 grid grid-cols-6 gap-8 opacity-10">
+				{#each symbols as symbol, index}
+					<div 
+						bind:this={symbolElements[index]}
+						class="flex items-center justify-center {symbol.size}"
+						style:color={symbol.color}
+						style:transform="rotate({Math.random() * 30 - 15}deg)"
+					>
+						{symbol.icon}
+					</div>
+				{/each}
+			</div>
+			
+			<!-- Main floating symbols with enhanced animations -->
+			<div class="relative min-h-[300px]">
+				<div class="absolute left-[8%] top-[15%] animate-bounce" style:animation-delay="0s" style:animation-duration="3s">
+					<span class="text-7xl drop-shadow-lg" style:color="#FF6B35">🎯</span>
+				</div>
+				<div class="absolute right-[12%] top-[5%] animate-pulse" style:animation-delay="1s" style:animation-duration="2s">
+					<span class="text-6xl drop-shadow-lg" style:color="#FF8C42">⚡</span>
+				</div>
+				<div class="absolute left-[15%] bottom-[25%] animate-bounce" style:animation-delay="2s" style:animation-duration="2.5s">
+					<span class="text-8xl drop-shadow-lg" style:color="#FF9F1C">🚀</span>
+				</div>
+				<div class="absolute right-[20%] bottom-[15%] animate-pulse" style:animation-delay="0.5s" style:animation-duration="3.5s">
+					<span class="text-6xl drop-shadow-lg" style:color="#FFB627">💡</span>
+				</div>
+				<div class="absolute left-[45%] top-[10%] animate-bounce" style:animation-delay="1.5s" style:animation-duration="2.8s">
+					<span class="text-7xl drop-shadow-lg" style:color="#FF6B35">🔥</span>
+				</div>
+				<div class="absolute right-[35%] bottom-[35%] animate-pulse" style:animation-delay="2.5s" style:animation-duration="2.2s">
+					<span class="text-5xl drop-shadow-lg" style:color="#FF8C42">⭐</span>
+				</div>
+				<div class="absolute left-[30%] bottom-[10%] animate-bounce" style:animation-delay="3s" style:animation-duration="3.2s">
+					<span class="text-6xl drop-shadow-lg" style:color="#FF9F1C">🎪</span>
+				</div>
+				<div class="absolute right-[45%] top-[25%] animate-pulse" style:animation-delay="1.8s" style:animation-duration="2.7s">
+					<span class="text-5xl drop-shadow-lg" style:color="#FFB627">🎨</span>
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>

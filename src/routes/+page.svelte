@@ -7,38 +7,22 @@
 	import CallToAction from "$lib/components/layout/CallToAction.svelte";
 	import AboutTeaser from "$lib/components/layout/AboutTeaser.svelte";
 	import LogoScroller from "$lib/components/layout/LogoScroller.svelte";
-	import CustomerCardHero from "$lib/components/layout/hero-sections/CustomerCardHero.svelte";
+	import Hero from "$lib/components/layout/hero-sections/Hero.svelte";
 </script>
 
-<CustomerCardHero
+<Hero
   centered={true}
+  withSymbols={true}
   title="Great matches start with real understanding"
   subtitle="Trusted by UK teams and talent for genuine, high-quality connections"
-  customers={[
+  callsToAction={[
     {
-      name: "Hannah Lee",
-      imageSrc: "/generated/image-a-female-software-engineer-smiling-at-he.webp",
-      position: "Software Engineer"
+      href: "/for-candidates",
+      label: "Talk to Dex"
     },
     {
-      name: "Jack Evans",
-      imageSrc: "/generated/image-a-male-engineering-lead-in-an-open-plan-.webp",
-      position: "Engineering Lead"
-    },
-    {
-      name: "Rachel Smith",
-      imageSrc: "/generated/image-a-female-product-manager-at-work-in-a-bu.webp",
-      position: "Product Manager"
-    },
-    {
-      name: "David Adams",
-      imageSrc: "/generated/image-a-male-founder-working-energetically-in-.webp",
-      position: "Founder"
-    },
-    {
-      name: "Olivia Turner",
-      imageSrc: "/generated/image-a-female-ux-designer-working-in-a-cozy-c.webp",
-      position: "UX Designer"
+      href: "/for-companies", 
+      label: "Hire with Dex"
     }
   ]}
 />
