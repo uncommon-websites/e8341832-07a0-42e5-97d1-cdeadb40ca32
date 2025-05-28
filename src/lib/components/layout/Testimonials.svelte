@@ -40,26 +40,22 @@
 </script>
 
 <section
-	class="section-py from-background via-background/95 to-muted/20 relative overflow-hidden bg-gradient-to-br"
+	class="section-py relative overflow-hidden bg-black border-y border-white/10"
 	{...rest}
 >
-	<!-- Subtle geometric pattern overlay -->
-	<div class="absolute inset-0 opacity-[0.02]">
-		<svg class="h-full w-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-			<defs>
-				<pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-					<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5" />
-				</pattern>
-			</defs>
-			<rect width="100" height="100" fill="url(#grid)" />
-		</svg>
-	</div>
+	<!-- Dramatic background effects -->
+	<div class="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-black to-secondary-900/15"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(168,85,247,0.1),transparent_50%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(236,72,153,0.08),transparent_50%)]"></div>
+	
+	<!-- Subtle grid pattern -->
+	<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
 	<div class="section-px relative z-10 container mx-auto">
 		<!-- Section Header -->
-		<div class="mb-16 text-center">
-			<h2 class="text-title1 text-foreground mb-4">Trusted by teams who hire with confidence</h2>
-			<p class="text-body text-foreground/60 mx-auto max-w-2xl">
+		<div class="mb-20 text-center">
+			<h2 class="text-6xl font-black text-white mb-6 tracking-tight">Trusted by teams who hire with confidence</h2>
+			<p class="text-xl text-white/80 mx-auto max-w-3xl leading-relaxed">
 				See how Dex transforms hiring for companies and candidates alike
 			</p>
 		</div>
@@ -68,26 +64,26 @@
 		<div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
 			{#each testimonials as testimonial, index}
 				<article
-					class="group bg-card border-border hover:border-border/80 relative rounded-2xl border p-8 transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-lg"
+					class="group bg-gray-900/50 border-white/10 hover:border-white/20 relative rounded-3xl border p-10 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl backdrop-blur-sm"
 					class:ring-2={current === index}
-					class:ring-primary={current === index}
+					class:ring-primary-400={current === index}
 					class:ring-offset-2={current === index}
-					class:ring-offset-background={current === index}
-					class:scale-[1.02]={current === index}
-					class:shadow-xl={current === index}
+					class:ring-offset-black={current === index}
+					class:scale-[1.03]={current === index}
+					class:shadow-2xl={current === index}
 				>
 					<!-- Quote -->
-					<blockquote class="text-body text-foreground/90 mb-8 leading-relaxed">
+					<blockquote class="text-lg text-white/95 mb-10 leading-relaxed font-medium">
 						"{testimonial.quote}"
 					</blockquote>
 
 					<!-- Attribution -->
-					<footer class="flex items-center gap-4">
+					<footer class="flex items-center gap-5">
 						<!-- Avatar placeholder with initials -->
 						<div
-							class="from-primary/20 to-primary/10 border-primary/20 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border bg-gradient-to-br"
+							class="from-primary-500/30 to-secondary-500/20 border-primary-400/30 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border-2 bg-gradient-to-br shadow-lg"
 						>
-							<span class="text-primary text-sm font-semibold">
+							<span class="text-primary-300 text-base font-bold">
 								{testimonial.name
 									.split(" ")
 									.map((n) => n[0])
@@ -97,8 +93,8 @@
 
 						<div>
 							<cite class="not-italic">
-								<p class="text-foreground font-semibold">{testimonial.name}</p>
-								<p class="text-foreground/60 text-sm">
+								<p class="text-white font-bold text-lg">{testimonial.name}</p>
+								<p class="text-white/70 text-base">
 									{testimonial.position}, {testimonial.company}
 								</p>
 							</cite>
@@ -107,7 +103,7 @@
 
 					<!-- Subtle corner accent -->
 					<div
-						class="absolute top-6 right-6 h-8 w-8 opacity-10 transition-opacity duration-300 group-hover:opacity-20"
+						class="absolute top-8 right-8 h-10 w-10 opacity-20 transition-opacity duration-300 group-hover:opacity-40 text-primary-400"
 					>
 						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
@@ -121,22 +117,17 @@
 		</div>
 
 		<!-- Navigation Dots -->
-		<div class="mt-12 flex justify-center gap-3">
+		<div class="mt-16 flex justify-center gap-4">
 			{#each testimonials as _, index}
 				<button
-					class="focus:ring-primary focus:ring-offset-background h-3 w-3 rounded-full transition-all duration-300 ease-out focus:ring-2 focus:ring-offset-2 focus:outline-none"
-					class:bg-primary={current === index}
+					class="focus:ring-primary-400 focus:ring-offset-black h-4 w-4 rounded-full transition-all duration-300 ease-out focus:ring-2 focus:ring-offset-2 focus:outline-none"
+					class:bg-primary-400={current === index}
 					class:scale-125={current === index}
-					class:bg-border={current !== index}
+					class:bg-white/30={current !== index}
 					aria-label="View testimonial {index + 1}"
 					onclick={() => goToTestimonial(index)}
 				></button>
 			{/each}
 		</div>
-
-		<!-- Subtle bottom accent -->
-		<div
-			class="via-border absolute bottom-0 left-1/2 h-px w-24 -translate-x-1/2 bg-gradient-to-r from-transparent to-transparent"
-		></div>
 	</div>
 </section>

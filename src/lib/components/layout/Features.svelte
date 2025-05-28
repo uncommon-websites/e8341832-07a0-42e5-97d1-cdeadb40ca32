@@ -27,8 +27,16 @@
 	);
 </script>
 
-<section class="[--gap:--spacing(2)]" {...rest}>
-	<div class="section-px section-py container mx-auto grid">
+<section class="[--gap:--spacing(2)] bg-black border-y border-white/10 relative overflow-hidden" {...rest}>
+	<!-- Dramatic background effects -->
+	<div class="absolute inset-0 bg-gradient-to-br from-secondary-900/15 via-black to-primary-900/20"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(168,85,247,0.08),transparent_50%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(236,72,153,0.06),transparent_50%)]"></div>
+	
+	<!-- Subtle grid pattern -->
+	<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+
+	<div class="section-px section-py container mx-auto grid relative z-10">
 		<SectionHeader {title} {subtitle} />
 
 		<div class="bento-grid {featureCountClass}">

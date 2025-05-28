@@ -55,11 +55,11 @@
 	--radius-4xl: calc(var(--radius) * 5);
 }
 
-/* Uncomment this next block for dark mode. Do not remove this line. */
+/* Dark mode enabled globally */
 
-/* html[data-theme="dark"] {
+html {
 	@theme {
-		--color-background: var(--color-gray-950);
+		--color-background: #0a0a0a;
 		--color-foreground: var(--color-gray-50);
 		--color-card: var(--color-gray-900);
 		--color-card-foreground: var(--color-gray-50);
@@ -92,4 +92,4 @@
 		--color-sidebar-border: color-mix(in oklch, var(--color-gray-50), transparent 90%);
 		--color-sidebar-ring: var(--color-primary-600);
 	}
-} */
+}

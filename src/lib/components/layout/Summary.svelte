@@ -64,20 +64,24 @@
 </script>
 
 <div
-	class="relative overflow-hidden"
+	class="relative overflow-hidden bg-black border-y border-white/10"
 	bind:this={containerElement}
 	{...rest}
 >
-	<div class="section-px section-py container mx-auto flex flex-col items-start gap-8 text-pretty lg:grid xl:flex-row"
+	<!-- Subtle background effects -->
+	<div class="absolute inset-0 bg-gradient-to-r from-primary-900/10 via-transparent to-secondary-900/10"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02),transparent_70%)]"></div>
+	
+	<div class="section-px section-py container mx-auto flex flex-col items-start gap-12 text-pretty lg:grid xl:flex-row"
 		class:lg:grid-cols-[1fr_2fr]={!!title}
 	>
 		{#if title}
-			<p class="text-foreground/60 text-xl font-medium word">{title}</p>
+			<p class="text-white/70 text-2xl font-bold word tracking-tight">{title}</p>
 		{/if}
 
 		<div class="text-title1 container-sm gap relative mx-auto grid">
 			{#each segments as paragraph, i}
-				<p class="mb-[1.5em] last:mb-0 text-foreground">
+				<p class="mb-[1.5em] last:mb-0 text-white/95 text-3xl font-medium leading-relaxed">
 					{#each paragraph.split(" ").filter(Boolean) as word}
 						<span class="word relative inline-block transition duration-150 ease-out">{word}</span
 						>{" "}

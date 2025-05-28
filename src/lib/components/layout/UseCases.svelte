@@ -43,22 +43,30 @@
 	});
 </script>
 
-<section class="[--gap:--spacing(4)] [--inner-radius:calc(var(--radius)-var(--gap))]" {...rest}>
-	<div class="section-px section-py container mx-auto grid">
+<section class="[--gap:--spacing(4)] [--inner-radius:calc(var(--radius)-var(--gap))] bg-black border-y border-white/10 relative overflow-hidden" {...rest}>
+	<!-- Dramatic background effects -->
+	<div class="absolute inset-0 bg-gradient-to-br from-primary-900/15 via-black to-secondary-900/20"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,rgba(168,85,247,0.1),transparent_50%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.08),transparent_50%)]"></div>
+	
+	<!-- Subtle grid pattern -->
+	<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+
+	<div class="section-px section-py container mx-auto grid relative z-10">
 		<SectionHeader {title} {subtitle} />
 
-		<div class="grid gap-(--gap) rounded-(--radius) lg:grid-cols-[1fr_2fr]">
+		<div class="grid gap-8 rounded-3xl lg:grid-cols-[1fr_2fr]">
 			<!-- Left column: Use cases list -->
 			<div
-				class="items-between bg-card border-border row-start-2 grid content-between gap-8 rounded-(--radius) border p-(--gap) lg:row-start-auto"
+				class="bg-gray-900/40 border-white/10 row-start-2 grid content-between gap-10 rounded-3xl border p-8 lg:row-start-auto backdrop-blur-sm"
 			>
-				<div>
+				<div class="space-y-6">
 					{#each useCases as useCase, index}
 						<div class="group">
 							<button
-								class="text-title3 hover:text-primary-600 hover:dark:text-primary-300 row-start-1 mb-2 w-full text-left transition-colors"
-								class:text-primary-700={current === index}
-								class:dark:text-primary-400={current === index}
+								class="text-2xl font-bold hover:text-primary-400 row-start-1 mb-3 w-full text-left transition-all duration-300 leading-tight"
+								class:text-primary-400={current === index}
+								class:text-white/70={current !== index}
 								onpointerenter={() => (current = index)}
 							>
 								{useCase.title}
@@ -67,10 +75,10 @@
 					{/each}
 				</div>
 				<article class="row-start-2">
-					<p class="text-body text-gray-500">{useCases[current].description}</p>
+					<p class="text-lg text-white/85 leading-relaxed mb-6">{useCases[current].description}</p>
 					{#if useCases[current]?.link}
-						<div class="mt-6">
-							<Button href={useCases[current].link.href} variant="secondary">
+						<div class="mt-8">
+							<Button href={useCases[current].link.href} variant="secondary" class="text-lg px-8 py-4 font-bold border-white/20 hover:border-white/40">
 								{useCases[current].link.label}
 							</Button>
 						</div>
@@ -79,10 +87,10 @@
 			</div>
 
 			<!-- Right column: Featured image -->
-			<div class="grid overflow-clip rounded-(--radius) bg-gray-50">
+			<div class="grid overflow-clip rounded-3xl bg-gray-900/20 border border-white/10">
 				{#key useCases[current]?.image}
 					<img
-						transition:fade={{ easing: cubicInOut, duration: 200 }}
+						transition:fade={{ easing: cubicInOut, duration: 300 }}
 						src={useCases[current].image}
 						alt="Featured use case"
 						loading="lazy"

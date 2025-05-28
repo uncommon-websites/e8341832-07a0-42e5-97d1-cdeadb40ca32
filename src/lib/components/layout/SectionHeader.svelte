@@ -18,14 +18,14 @@
 
 <div
 	class={[
-		"section-pb-sm container-sm grid text-balance",
+		"section-pb-sm container-sm grid text-balance text-center",
 		size === "lg" ? "text-display" : "text-title2"
 	]}
 >
-	<h2>
+	<h2 class="text-5xl font-black text-white mb-6 tracking-tight">
 		<AnimateText text={title} {oncomplete} />
 	</h2>
-	<p class="text-emphasis-dim">
+	<p class="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
 		<AnimateText text={subtitle} />
 	</p>
 </div>
