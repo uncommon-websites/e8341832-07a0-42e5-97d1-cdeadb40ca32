@@ -117,7 +117,7 @@
 </div>
 
 <div class="flex items-center justify-end gap-2">
-	<Button size="sm" variant="secondary" href={cta.href}>{cta.label}</Button>
+	<Button size="sm" variant="secondary" href={cta.href} class="bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm font-semibold">{cta.label}</Button>
 
 	<Button
 		aria-label="Toggle nav"
@@ -126,7 +126,7 @@
 		hideLabel
 		suffix={IconMenu}
 		iconOnly
-		class="z-50 max-h-full"
+		class="z-50 max-h-full text-white hover:bg-white/10"
 		onclick={() => (isMenuOpen = !isMenuOpen)}>Menu</Button
 	>
 </div>

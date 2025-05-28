@@ -11,9 +11,6 @@
 </script>
 
 <Hero
-  centered={false}
-  withSymbols={false}
-  imageSrc="/generated/image-a-modern-office-setting-with-diverse-pro.webp"
   title="Where talent meets opportunity, perfectly"
   subtitle="Trusted by UK teams and talent for genuine, high-quality connections"
   callsToAction={[

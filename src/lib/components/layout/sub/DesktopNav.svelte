@@ -23,16 +23,16 @@
 		"[--inner-radius:calc(var(--outer-radius)-var(--gap))]"
 	]}
 >
-	<NavigationMenu.Root class="text-foreground relative z-10 flex justify-end">
+	<NavigationMenu.Root class="text-white relative z-10 flex justify-end">
 		<NavigationMenu.List class="group flex list-none items-center justify-center gap-5 p-1">
 			{#each items as item}
 				<NavigationMenu.Item
-					class="after:bg-muted relative after:absolute after:-inset-x-2.5 after:-inset-y-1.5 after:-z-10 after:rounded-(--radius) after:opacity-0 after:transition after:duration-300 after:ease-out hover:after:opacity-100"
+					class="after:bg-white/10 relative after:absolute after:-inset-x-2.5 after:-inset-y-1.5 after:-z-10 after:rounded-(--radius) after:opacity-0 after:transition after:duration-300 after:ease-out hover:after:opacity-100"
 				>
 					{#if item.children}
 						<DesktopNavDropdown {item} />
 					{:else}
-						<NavigationMenu.Link class="link" href={item.href}>
+						<NavigationMenu.Link class="link text-white font-medium hover:text-white/80 drop-shadow-lg" href={item.href}>
 							{item.label}
 						</NavigationMenu.Link>
 					{/if}
@@ -52,7 +52,7 @@
 		</div>
 	</NavigationMenu.Root>
 
-	<Button size="sm" variant="secondary" href={cta.href} class="ml-1">{cta.label}</Button>
+	<Button size="sm" variant="secondary" href={cta.href} class="ml-1 bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm font-semibold">{cta.label}</Button>
 </div>
 
 <style lang="postcss">

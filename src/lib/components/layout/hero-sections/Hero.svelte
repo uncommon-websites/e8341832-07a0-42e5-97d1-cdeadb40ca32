@@ -108,155 +108,50 @@
 </script>
 
 <div 
-	class={videoSrc ? "relative overflow-hidden" : "bg-[#FAF5EC]"} 
-	style:min-height={videoSrc ? `calc(100vh - ${navHeight.current}px)` : undefined}
+	class="relative overflow-hidden" 
+	style:min-height="100vh"
 	{...rest}
 >
-	{#if videoSrc}
-		<!-- Video Background -->
-		<video
-			autoplay
-			muted
-			loop
-			playsinline
-			class="absolute inset-0 h-full w-full object-cover"
-		>
-			<source src={videoSrc} type="video/mp4" />
-		</video>
-		
-		<!-- Black Overlay -->
-		<div class="absolute inset-0 bg-black/40"></div>
-		
-		<!-- Top gradient for nav readability -->
-		<div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent"></div>
-	{/if}
+	<!-- Dramatic Background Image -->
+	<div 
+		class="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
+		style:background-image="url('/generated/image-a-dramatic-mountain-landscape-at-sunset-.webp')"
+	></div>
+	
+	<!-- Black Overlay -->
+	<div class="absolute inset-0 bg-black/70"></div>
+	
+	<!-- Top gradient for nav readability -->
+	<div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 to-transparent"></div>
 
 	<header
-		class={[
-			videoSrc 
-				? "relative z-10 flex items-end justify-start px-8 pb-16 text-left"
-				: "section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
-			!videoSrc && centered ? "place-items-center text-center" : !videoSrc ? " xl:grid-cols-[1fr_auto]" : ""
-		]}
-		style:min-height={videoSrc ? `calc(100vh - ${navHeight.current}px)` : undefined}
+		class="relative z-10 flex items-end justify-start px-8 pb-20 text-left"
+		style:min-height="100vh"
 		data-enter-container
 	>
-		<div class={videoSrc ? "max-w-4xl" : "grid gap-6"} class:max-w-prose={!videoSrc && centered}>
-			<h1 class={videoSrc ? "text-8xl font-black leading-none tracking-tight text-white mb-6" : "text-display w-full"} data-enter>
-				{#if videoSrc}
-					<span class="block drop-shadow-2xl"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
-				{:else}
-					<span class="block"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
-					{#if !centered}
-						<span class="text-emphasis-dim block"><AnimateText text={subtitle} staggerDelay={60} animationDuration={800} /></span>
-					{/if}
-				{/if}
+		<div class="max-w-6xl">
+			<h1 class="text-[clamp(4rem,12vw,14rem)] font-black leading-[0.85] tracking-tighter text-white mb-8" data-enter>
+				<span class="block drop-shadow-2xl"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
 			</h1>
 
-			{#if videoSrc}
-				<p class="text-2xl font-medium text-white/90 max-w-2xl mb-8 drop-shadow-lg" data-enter>
-					{subtitle}
-				</p>
-			{:else if centered}
-				<p
-					data-enter
-					class={[
-						"text-muted-foreground text-headline mx-auto block max-w-[45ch] transition duration-500 ease-out"
-						// isTitleComplete ? "opacity-100" : "translate-y-2 opacity-0 blur-sm"
-					]}
-				>
-					{subtitle}
-				</p>
-			{/if}
+			<p class="text-3xl font-medium text-white/90 max-w-3xl mb-12 drop-shadow-lg" data-enter>
+				{subtitle}
+			</p>
 
-			{#if videoSrc && callsToAction.length > 0}
-				<div class="flex gap-6" data-enter>
+			{#if callsToAction.length > 0}
+				<div class="flex gap-8" data-enter>
 					{#each callsToAction as cta, index}
 						<Button
 							href={cta.href}
 							size="xl"
 							variant={index % 2 === 0 ? "primary" : "secondary"}
-							class="text-lg px-8 py-4 font-semibold shadow-2xl">{cta.label}</Button
+							class="text-xl px-12 py-6 font-bold shadow-2xl border-2 border-white/20 backdrop-blur-sm">{cta.label}</Button
 						>
 					{/each}
 				</div>
 			{/if}
 		</div>
-
-		{#if !videoSrc && callsToAction.length > 0}
-			<div class="flex gap-4" data-enter>
-				{#each callsToAction as cta, index}
-					<Button
-						href={cta.href}
-						size="lg"
-						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="max-lg:hidden">{cta.label}</Button
-					>
-					<Button
-						href={cta.href}
-						size="md"
-						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="lg:hidden">{cta.label}</Button
-					>
-				{/each}
-			</div>
-		{/if}
 	</header>
 
-	{#if imageSrc && !withSymbols}
-		<div class="col-span-full aspect-video" data-enter>
-			<img
-				src={imageSrc}
-				alt="Customer"
-				class="size-full object-cover"
-				onerror={handleImageError}
-			/>
-		</div>
-	{/if}
-
-	{#if withSymbols}
-		<div class="relative mt-12 overflow-hidden py-20" data-enter>
-			<!-- Background pattern -->
-			<div class="absolute inset-0 grid grid-cols-6 gap-8 opacity-10">
-				{#each symbols as symbol, index}
-					<div 
-						bind:this={symbolElements[index]}
-						class="flex items-center justify-center {symbol.size}"
-						style:color={symbol.color}
-						style:transform="rotate({Math.random() * 30 - 15}deg)"
-					>
-						{symbol.icon}
-					</div>
-				{/each}
-			</div>
-			
-			<!-- Main floating symbols with enhanced animations -->
-			<div class="relative min-h-[300px]">
-				<div class="absolute left-[8%] top-[15%] animate-bounce" style:animation-delay="0s" style:animation-duration="3s">
-					<span class="text-7xl drop-shadow-lg" style:color="#FF6B35">🎯</span>
-				</div>
-				<div class="absolute right-[12%] top-[5%] animate-pulse" style:animation-delay="1s" style:animation-duration="2s">
-					<span class="text-6xl drop-shadow-lg" style:color="#FF8C42">⚡</span>
-				</div>
-				<div class="absolute left-[15%] bottom-[25%] animate-bounce" style:animation-delay="2s" style:animation-duration="2.5s">
-					<span class="text-8xl drop-shadow-lg" style:color="#FF9F1C">🚀</span>
-				</div>
-				<div class="absolute right-[20%] bottom-[15%] animate-pulse" style:animation-delay="0.5s" style:animation-duration="3.5s">
-					<span class="text-6xl drop-shadow-lg" style:color="#FFB627">💡</span>
-				</div>
-				<div class="absolute left-[45%] top-[10%] animate-bounce" style:animation-delay="1.5s" style:animation-duration="2.8s">
-					<span class="text-7xl drop-shadow-lg" style:color="#FF6B35">🔥</span>
-				</div>
-				<div class="absolute right-[35%] bottom-[35%] animate-pulse" style:animation-delay="2.5s" style:animation-duration="2.2s">
-					<span class="text-5xl drop-shadow-lg" style:color="#FF8C42">⭐</span>
-				</div>
-				<div class="absolute left-[30%] bottom-[10%] animate-bounce" style:animation-delay="3s" style:animation-duration="3.2s">
-					<span class="text-6xl drop-shadow-lg" style:color="#FF9F1C">🎪</span>
-				</div>
-				<div class="absolute right-[45%] top-[25%] animate-pulse" style:animation-delay="1.8s" style:animation-duration="2.7s">
-					<span class="text-5xl drop-shadow-lg" style:color="#FFB627">🎨</span>
-				</div>
-			</div>
-		</div>
-	{/if}
+	<!-- Symbols removed for hyper minimalistic design -->
 </div>
