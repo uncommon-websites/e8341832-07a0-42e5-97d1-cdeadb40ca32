@@ -114,9 +114,9 @@
 	>
 		<div class="grid gap-6" class:max-w-prose={centered}>
 			<h1 class="text-display w-full" data-enter>
-				<span class="block"><AnimateText text={title} /></span>
+				<span class="block"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
 				{#if !centered}
-					<span class="text-emphasis-dim block"><AnimateText text={subtitle} /></span>
+					<span class="text-emphasis-dim block"><AnimateText text={subtitle} staggerDelay={60} animationDuration={800} /></span>
 				{/if}
 			</h1>
 

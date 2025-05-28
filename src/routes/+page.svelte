@@ -13,7 +13,7 @@
 <Hero
   centered={true}
   withSymbols={true}
-  title="Great matches start with real understanding"
+  title="Where talent meets opportunity, perfectly"
   subtitle="Trusted by UK teams and talent for genuine, high-quality connections"
   callsToAction={[
     {
