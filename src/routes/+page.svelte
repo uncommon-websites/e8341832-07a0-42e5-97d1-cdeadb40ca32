@@ -7,16 +7,50 @@
 	import CallToAction from "$lib/components/layout/CallToAction.svelte";
 	import AboutTeaser from "$lib/components/layout/AboutTeaser.svelte";
 	import LogoScroller from "$lib/components/layout/LogoScroller.svelte";
-	import Hero from "$lib/components/layout/hero-sections/Hero.svelte";
+	import CustomerCardHero from "$lib/components/layout/hero-sections/CustomerCardHero.svelte";
 </script>
 
-<Hero
-	title="Elevate your business with thoughtful design"
-	subtitle="Solutions that enhance user experience, and improve visual communication."
-	imageSrc="/sample.png"
-	generating
+<CustomerCardHero
+  centered={true}
+  title="Great matches start with real understanding"
+  subtitle="Trusted by UK teams and talent for genuine, high-quality connections"
+  customers={[
+    {
+      name: "Hannah Lee",
+      imageSrc: "/generated/image-a-female-software-engineer-smiling-at-he.webp",
+      position: "Software Engineer"
+    },
+    {
+      name: "Jack Evans",
+      imageSrc: "/generated/image-a-male-engineering-lead-in-an-open-plan-.webp",
+      position: "Engineering Lead"
+    },
+    {
+      name: "Rachel Smith",
+      imageSrc: "/generated/image-a-female-product-manager-at-work-in-a-bu.webp",
+      position: "Product Manager"
+    },
+    {
+      name: "David Adams",
+      imageSrc: "/generated/image-a-male-founder-working-energetically-in-.webp",
+      position: "Founder"
+    },
+    {
+      name: "Olivia Turner",
+      imageSrc: "/generated/image-a-female-ux-designer-working-in-a-cozy-c.webp",
+      position: "UX Designer"
+    }
+  ]}
 />
-<LogoScroller label="" generating />
+<LogoScroller
+	label="Trusted by industry leaders"
+	logoUrls={[
+		'https://logo.clearbit.com/revolut.com',
+		'https://logo.clearbit.com/octopusventures.com',
+		'https://logo.clearbit.com/monzo.com',
+		'https://logo.clearbit.com/wise.com'
+	]}
+/>
 
 <Summary
 	generating
