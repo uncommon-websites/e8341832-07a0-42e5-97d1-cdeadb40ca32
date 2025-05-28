@@ -34,16 +34,16 @@
 <div
 	bind:clientHeight={navHeight.current}
 	class={[
-		"sticky top-0 left-0 z-50 border-b backdrop-blur-lg transition",
-		scrollY.current !== 0 ? "border-border bg-background/95" : "bg-background border-transparent"
+		"sticky top-0 left-0 z-50 border-b backdrop-blur-xl transition-all duration-300",
+		scrollY.current !== 0 ? "border-border bg-background/98 shadow-lg" : "bg-background/90 border-transparent"
 	]}
 	style:--tw-duration="{DURATION}ms"
 >
-	<div class="section-px container mx-auto grid grid-cols-[auto_1fr] gap-8 py-3">
-		<a href="/" class="flex items-center gap-3.5">
-			<Logo class="z-50 size-7" />
+	<div class="section-px container mx-auto grid grid-cols-[auto_1fr] gap-8 py-4">
+		<a href="/" class="flex items-center gap-4 group">
+			<Logo class="z-50 size-8 transition-transform group-hover:scale-110" />
 
-			<span class="font-medium">{CONFIG.companyName}</span>
+			<span class="font-semibold text-lg tracking-tight">{CONFIG.companyName}</span>
 		</a>
 
 		<!-- items + cta -->

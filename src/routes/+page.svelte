@@ -13,7 +13,7 @@
 <Hero
   centered={false}
   withSymbols={false}
-  videoSrc="https://videos.pexels.com/video-files/3196036/3196036-uhd_2560_1440_25fps.mp4"
+  imageSrc="/generated/image-a-modern-office-setting-with-diverse-pro.webp"
   title="Where talent meets opportunity, perfectly"
   subtitle="Trusted by UK teams and talent for genuine, high-quality connections"
   callsToAction={[
