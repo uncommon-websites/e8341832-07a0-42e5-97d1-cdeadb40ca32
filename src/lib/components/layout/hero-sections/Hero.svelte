@@ -112,47 +112,70 @@
 	style:min-height="100vh"
 	{...rest}
 >
-	<!-- Dramatic gradient backgrounds -->
-	<div class="absolute inset-0 bg-gradient-to-br from-primary-900/30 via-black to-secondary-900/20"></div>
-	<div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(168,85,247,0.15),transparent_50%)]"></div>
-	<div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(236,72,153,0.1),transparent_50%)]"></div>
+	<!-- Ultra-dramatic gradient backgrounds -->
+	<div class="absolute inset-0 bg-gradient-to-br from-primary-900/40 via-black to-secondary-900/30"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(168,85,247,0.25),transparent_60%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_90%_70%,rgba(236,72,153,0.2),transparent_60%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.15),transparent_70%)]"></div>
 	
-	<!-- Subtle grid pattern -->
-	<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+	<!-- Dynamic grid pattern -->
+	<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-60"></div>
+	
+	<!-- Animated light streaks -->
+	<div class="absolute inset-0">
+		<div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-400/50 to-transparent animate-pulse"></div>
+		<div class="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-transparent via-secondary-400/50 to-transparent animate-pulse" style="animation-delay: 1s;"></div>
+	</div>
 	
 	<!-- Top gradient for nav readability -->
-	<div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/90 to-transparent"></div>
+	<div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/95 to-transparent"></div>
+	
+	<!-- Bottom gradient for text contrast -->
+	<div class="absolute inset-x-0 bottom-0 h-96 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
 	<header
-		class="relative z-10 flex items-center justify-center px-8 text-center"
+		class="relative z-10 flex items-end justify-start px-8 pb-16"
 		style:min-height="100vh"
 		data-enter-container
 	>
-		<div class="max-w-7xl space-y-12">
-			<h1 class="text-[clamp(3rem,10vw,9rem)] font-black leading-[0.85] tracking-tighter text-white" data-enter>
-				<span class="block bg-gradient-to-r from-white via-primary-200 to-white bg-clip-text text-transparent drop-shadow-2xl">
-					<AnimateText text={title} staggerDelay={80} animationDuration={1200} />
-				</span>
-			</h1>
+		<div class="max-w-7xl w-full">
+			<div class="space-y-8 text-left max-w-5xl">
+				<h1 class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.8] tracking-[-0.05em] text-white relative" data-enter>
+					<!-- Glow effect behind text -->
+					<div class="absolute inset-0 bg-gradient-to-r from-primary-400/30 via-white/20 to-secondary-400/30 blur-3xl opacity-60 scale-110"></div>
+					
+					<!-- Main text with ultra-dramatic styling -->
+					<span class="relative block bg-gradient-to-r from-white via-primary-100 via-white to-secondary-100 bg-clip-text text-transparent drop-shadow-2xl filter brightness-110 contrast-125">
+						<AnimateText text={title} staggerDelay={60} animationDuration={1500} />
+					</span>
+					
+					<!-- Subtle text shadow for depth -->
+					<div class="absolute inset-0 bg-gradient-to-r from-primary-600/20 via-white/10 to-secondary-600/20 bg-clip-text text-transparent translate-x-1 translate-y-1 -z-10">
+						{title}
+					</div>
+				</h1>
 
-			<p class="text-2xl font-medium text-white/90 max-w-4xl mx-auto leading-relaxed" data-enter>
-				{subtitle}
-			</p>
+				<p class="text-2xl lg:text-3xl font-semibold text-white/95 max-w-3xl leading-relaxed tracking-wide" data-enter>
+					{subtitle}
+				</p>
 
-			{#if callsToAction.length > 0}
-				<div class="flex flex-col sm:flex-row gap-6 justify-center items-center" data-enter>
-					{#each callsToAction as cta, index}
-						<Button
-							href={cta.href}
-							size="xl"
-							variant={index % 2 === 0 ? "primary" : "secondary"}
-							class="text-xl px-16 py-8 font-bold shadow-2xl border border-white/20 backdrop-blur-md hover:scale-105 transition-all duration-300"
-						>
-							{cta.label}
-						</Button>
-					{/each}
-				</div>
-			{/if}
+				{#if callsToAction.length > 0}
+					<div class="flex flex-col sm:flex-row gap-6 items-start pt-4" data-enter>
+						{#each callsToAction as cta, index}
+							<Button
+								href={cta.href}
+								size="xl"
+								variant={index % 2 === 0 ? "primary" : "secondary"}
+								class="text-xl px-20 py-8 font-black shadow-2xl border border-white/30 backdrop-blur-xl hover:scale-105 hover:shadow-primary-500/25 transition-all duration-500 relative overflow-hidden group"
+							>
+								<!-- Button glow effect -->
+								<div class="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+								<span class="relative z-10">{cta.label}</span>
+							</Button>
+						{/each}
+					</div>
+				{/if}
+			</div>
 		</div>
 	</header>
 </div>
