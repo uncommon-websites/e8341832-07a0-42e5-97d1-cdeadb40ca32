@@ -126,12 +126,21 @@
 
 <section
 	bind:this={wrapperRef}
-	class="text-pretty [--gap:--spacing(4)]"
+	class="text-pretty [--gap:--spacing(4)] relative overflow-hidden"
 	style="height: calc(100vh * {testimonials.length});"
 	{...rest}
 >
+	<!-- Dramatic Background Image -->
+	<div 
+		class="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
+		style:background-image="url('/generated/image-a-majestic-view-of-snow-capped-mountain-.webp')"
+	></div>
+	
+	<!-- Black Overlay -->
+	<div class="absolute inset-0 bg-black/70"></div>
+
 	<div
-		class="section-py section-px sticky top-0 flex min-h-screen w-full items-center overflow-hidden"
+		class="section-py section-px sticky top-0 flex min-h-screen w-full items-center overflow-hidden relative z-10"
 	>
 		<div
 			bind:this={carouselRef}
@@ -145,11 +154,11 @@
 					class={[
 						"lg:container-xs  lg:min-w-[50%] lg:grid-cols-[2fr_3fr]",
 						"items-between grid grid-cols-1 gap-8",
-						"bg-card dark:text-white",
+						"bg-black/40 backdrop-blur-sm text-white border-white/20",
 						"aspect-video max-w-full min-w-full xl:aspect-[auto]",
 						"transform-gpu transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform",
 						"rounded-(--outer-radius) p-(--gap)",
-						"border-border border contain-layout"
+						"border contain-layout shadow-2xl"
 					]}
 					style:transform="translateX(calc(-{scrollProgress} * {maxScrollDistance}px))"
 				>
@@ -159,24 +168,24 @@
 								src={testimonial.image}
 								alt="{testimonial.name} testimonial"
 								loading="lazy"
-								class="aspect-[3/4] h-full w-full object-cover"
+								class="aspect-[3/4] h-full w-full object-cover border-2 border-white/30"
 							/>
 						{/if}
 					</div>
 					<div class="flex flex-col justify-between gap-12">
-						<q class="text-title2 max-w-prose">{testimonial.quote}</q>
+						<q class="text-title2 max-w-prose text-white drop-shadow-md">{testimonial.quote}</q>
 						<cite class="text-caption flex items-center gap-3 not-italic">
 							{#if testimonial.image}
 								<img
 									src={testimonial.image}
 									alt="{testimonial.name} testimonial"
 									loading="lazy"
-									class="size-12 rounded-full object-cover lg:hidden"
+									class="size-12 rounded-full object-cover lg:hidden border-2 border-white/30"
 								/>
 							{/if}
 							<div>
-								<p class="text-callout">{testimonial.name}</p>
-								<p class="text-muted-foreground">
+								<p class="text-callout text-white font-semibold">{testimonial.name}</p>
+								<p class="text-white/70">
 									{testimonial.position}, {testimonial.company}
 								</p>
 							</div>
@@ -192,10 +201,10 @@
 		<div class="absolute bottom-8 left-1/2 flex -translate-x-1/2 justify-center gap-2">
 			{#each testimonials as _, index}
 				<div
-					class="focus:ring-primary-500 bg-emphasis-dim size-1.5 rounded-full transition-all duration-300 ease-in-out dark:bg-gray-700"
+					class="bg-white/40 size-1.5 rounded-full transition-all duration-300 ease-in-out backdrop-blur-sm"
 					class:opacity-50={current !== index}
 					class:w-8={current === index}
-					class:dark:bg-gray-400={current === index}
+					class:bg-white={current === index}
 					aria-hidden="true"
 				></div>
 			{/each}

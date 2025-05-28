@@ -64,23 +64,35 @@
 </script>
 
 <div
-	class="section-my section-px relative container mx-auto flex flex-col items-start gap-8 text-pretty lg:grid xl:flex-row"
+	class="relative overflow-hidden section-my"
 	bind:this={containerElement}
-	class:lg:grid-cols-[1fr_2fr]={!!title}
 	{...rest}
 >
-	{#if title}
-		<p class="text-emphasis-dim word">{title}</p>
-	{/if}
+	<!-- Dramatic Background Image -->
+	<div 
+		class="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
+		style:background-image="url('/generated/image-a-dramatic-scene-of-stormy-ocean-waves-c.webp')"
+	></div>
+	
+	<!-- Black Overlay -->
+	<div class="absolute inset-0 bg-black/75"></div>
 
-	<div class="text-title1 container-sm gap relative mx-auto grid">
-		{#each segments as paragraph, i}
-			<p class="mb-[1.5em] last:mb-0">
-				{#each paragraph.split(" ").filter(Boolean) as word}
-					<span class="word relative inline-block transition duration-150 ease-out">{word}</span
-					>{" "}
-				{/each}
-			</p>
-		{/each}
+	<div class="relative z-10 section-px container mx-auto flex flex-col items-start gap-8 text-pretty lg:grid xl:flex-row"
+		class:lg:grid-cols-[1fr_2fr]={!!title}
+	>
+		{#if title}
+			<p class="text-white/70 text-xl font-medium word drop-shadow-md">{title}</p>
+		{/if}
+
+		<div class="text-title1 container-sm gap relative mx-auto grid">
+			{#each segments as paragraph, i}
+				<p class="mb-[1.5em] last:mb-0 text-white drop-shadow-xl">
+					{#each paragraph.split(" ").filter(Boolean) as word}
+						<span class="word relative inline-block transition duration-150 ease-out">{word}</span
+						>{" "}
+					{/each}
+				</p>
+			{/each}
+		</div>
 	</div>
 </div>
