@@ -53,107 +53,111 @@
 />
 
 <Summary
-	generating
 	title="What we do"
-	text="Our technology delivers measurable results through secure, adaptable solutions that directly increase productivity and drive growth."
+	text="Dex is an AI talent agent connecting candidates and companies through intelligent voice, chat, and advanced data analysis. We match people to opportunities that truly fit, and help teams hire with confidence—faster and smarter."
 />
 
 <Testimonials
-	generating
 	testimonials={[
 		{
-			name: "Jane Smith",
-			position: "CTO",
-			company: "Tech Innovations",
+			name: "Elena Kovács",
+			position: "Engineering Manager",
+			company: "Brightseed Tech",
 			quote:
-				"Their cutting-edge automation boosted our productivity by 35%.\nThe intuitive interface reduced training time and improved team adoption.",
-			image:
-				"https://images.unsplash.com/photo-1571513722275-4b41940f54b8?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"Dex saved my team months of hiring time. We stopped wading through endless CVs and only met people ready to make real impact from day one.",
+			image: "/generated/image-a-confident-woman-smiling-in-a-modern-wo.webp"
 		},
 		{
-			name: "John Doe",
-			position: "Director of Operations",
-			company: "Global Solutions",
+			name: "Rio Davenport",
+			position: "Head of People",
+			company: "DriftSync",
 			quote:
-				"Their robust security protocols gave us confidence in handling sensitive data.\nThe 24/7 support team resolved issues within hours, not days.",
-			image:
-				"https://images.unsplash.com/photo-1600603405959-6d623e92445c?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"I used to worry about bad hiring decisions. With Dex’s AI agent, we had data-backed confidence in every intro and dramatically reduced employee turnover.",
+			image: "/generated/image-a-nonbinary-person-working-in-a-stylish-.webp"
 		},
 		{
-			name: "Sarah Johnson",
-			position: "Product Manager",
-			company: "Future Systems",
+			name: "Mateo Girard",
+			position: "Co-founder",
+			company: "Nimbus Solutions",
 			quote:
-				"The scalable platform grew seamlessly with our business needs.\nTheir customization options allowed us to tailor solutions perfectly to our workflows.",
-			image:
-				"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"We hired smarter and cut recruiting fees by 50% in one quarter. Dex found us top fit talent—no wasted spend on the wrong matches.",
+			image: "/generated/image-a-man-in-a-meeting-room-of-a-startup-loo.webp"
 		}
 	]}
 />
 
 <Features
-	generating
-	title="Features"
-	subtitle="Some features"
-	features={[
-		{
-			title: "Streamlined Workflows",
-			description:
-				"Automate repetitive tasks and connect systems to improve productivity with our industry-leading 87% time savings."
-		},
-		{
-			title: "Data Analysis",
-			description:
-				"Extract meaningful insights from your data with powerful analytical tools backed by proprietary AI algorithms that are 3x more accurate than competitors."
-		},
-		{
-			title: "Secure Collaboration",
-			description:
-				"Work together seamlessly while maintaining strict data privacy standards with our zero-knowledge architecture and military-grade encryption."
-		}
-	]}
+  title="What makes Dex different"
+  subtitle="A smarter way to connect talent and opportunity"
+  features={[
+    {
+      title: "Deeper candidate profiles in minutes",
+      description:
+        "AI voice and live chat build a rich, human-first profile in one conversation—not endless forms."
+    },
+    {
+      title: "Smarter matches you won't find elsewhere",
+      description:
+        "Our AI searches exclusive roles and hidden talent pools using real goals, not just job titles."
+    },
+    {
+      title: "Precision shortlists, not bulk resumes",
+      description:
+        "We handpick aligned candidates for each role—so you can hire with clarity and confidence."
+    }
+  ]}
 />
 
 <UseCases
-	generating
-	title="Use Cases"
-	subtitle="Real-world applications for your business needs"
+	title="Use cases"
+	subtitle="How Dex changes hiring — for people and teams"
 	useCases={[
 		{
-			title: "Streamlined Workflows",
-			description:
-				"Automate repetitive tasks and connect systems to improve productivity with our industry-leading 87% time savings.",
-			image:
-				"https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+			title: "Conversations that reveal true fit",
+			description: "Dex uses AI-powered voice and chat to get to the heart of what candidates want and what companies need — surfacing motivations, work style, and strengths that go far beyond the CV."
+			,image: "/generated/image-a-professional-recruiter-having-a-conver.webp",
 			link: {
-				href: "/use-cases/workflows",
+				href: "/use-cases/conversation-matching",
 				label: "Learn more"
 			}
 		},
 		{
-			title: "Data Analysis",
-			description:
-				"Extract meaningful insights from your data with powerful analytical tools backed by proprietary AI algorithms that are 3x more accurate than competitors.",
-			image:
-				"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2488&q=80",
+			title: "More than keywords: better matches, faster",
+			description: "No more endless applications or noisy job boards. Dex matches candidates to hard-to-find roles — including exclusive and unadvertised opportunities — and makes it simple for companies to hire with clarity.",
+			image: "/generated/image-a-group-of-diverse-candidates-gathered-a.webp",
 			link: {
-				href: "/use-cases/data-analysis",
-				label: "Explore analytics"
+				href: "/use-cases/smart-matching",
+				label: "Learn more"
 			}
 		},
 		{
-			title: "Secure Collaboration",
-			description:
-				"Work together seamlessly while maintaining strict data privacy standards with our zero-knowledge architecture and military-grade encryption.",
-			image:
-				"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+			title: "Hiring decisions you can trust",
+			description: "Dex's machine learning and large-scale data analysis uncover what drives success in every role. Hiring teams get context-rich insights that reduce churn, increase retention, and make every intro count.",
+			image: "/generated/image-a-business-hiring-team-in-a-meeting-room.webp",
 			link: {
-				href: "/use-cases/collaboration",
-				label: "See security features"
+				href: "/use-cases/contextual-hiring-insights",
+				label: "Learn more"
 			}
 		}
 	]}
 />
 
-<AboutTeaser generating />
-<CallToAction generating />
+<AboutTeaser />
+<CallToAction
+  title="Your future team is waiting"
+  subtitle="Find work worth doing. Hire people worth keeping."
+  description="Ready to meet your match? Whether you're searching for the next big opportunity or looking for people who fit your team, Dex delivers the right connections—faster, smarter, and with a personal touch. Join the AI talent agent rethinking what hiring can be."
+  imageSrc="/generated/image-a-cheerful-young-professional-in-a-moder.webp"
+  callsToAction={[
+    {
+      href: "/for-candidates",
+      label: "Talk to Dex",
+      variant: "primary"
+    },
+    {
+      href: "/for-companies",
+      label: "Hire with Dex",
+      variant: "secondary"
+    }
+  ]}
+/>
