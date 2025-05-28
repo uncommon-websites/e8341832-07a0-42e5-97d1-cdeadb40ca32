@@ -50,6 +50,7 @@
 		title: string;
 		subtitle: string;
 		imageSrc?: string;
+		videoSrc?: string;
 		withSymbols?: boolean;
 		callsToAction?: Array<{
 			href: string;
@@ -61,6 +62,7 @@
 		title,
 		subtitle,
 		imageSrc,
+		videoSrc,
 		withSymbols = false,
 		callsToAction = [cta],
 		centered = false,
@@ -104,23 +106,49 @@
 	});
 </script>
 
-<div class="bg-[#FAF5EC]" {...rest}>
+<div class={videoSrc ? "relative min-h-screen overflow-hidden" : "bg-[#FAF5EC]"} {...rest}>
+	{#if videoSrc}
+		<!-- Video Background -->
+		<video
+			autoplay
+			muted
+			loop
+			playsinline
+			class="absolute inset-0 h-full w-full object-cover"
+		>
+			<source src={videoSrc} type="video/mp4" />
+		</video>
+		
+		<!-- Black Overlay -->
+		<div class="absolute inset-0 bg-black/50"></div>
+	{/if}
+
 	<header
 		class={[
-			"section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
-			centered ? "place-items-center text-center" : " xl:grid-cols-[1fr_auto]"
+			videoSrc 
+				? "relative z-10 flex min-h-screen items-end justify-start px-8 pb-16 text-left"
+				: "section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
+			!videoSrc && centered ? "place-items-center text-center" : !videoSrc ? " xl:grid-cols-[1fr_auto]" : ""
 		]}
 		data-enter-container
 	>
-		<div class="grid gap-6" class:max-w-prose={centered}>
-			<h1 class="text-display w-full" data-enter>
-				<span class="block"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
-				{#if !centered}
-					<span class="text-emphasis-dim block"><AnimateText text={subtitle} staggerDelay={60} animationDuration={800} /></span>
+		<div class={videoSrc ? "max-w-4xl" : "grid gap-6"} class:max-w-prose={!videoSrc && centered}>
+			<h1 class={videoSrc ? "text-8xl font-black leading-none tracking-tight text-white mb-6" : "text-display w-full"} data-enter>
+				{#if videoSrc}
+					<span class="block drop-shadow-2xl"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
+				{:else}
+					<span class="block"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
+					{#if !centered}
+						<span class="text-emphasis-dim block"><AnimateText text={subtitle} staggerDelay={60} animationDuration={800} /></span>
+					{/if}
 				{/if}
 			</h1>
 
-			{#if centered}
+			{#if videoSrc}
+				<p class="text-2xl font-medium text-white/90 max-w-2xl mb-8 drop-shadow-lg" data-enter>
+					{subtitle}
+				</p>
+			{:else if centered}
 				<p
 					data-enter
 					class={[
@@ -131,9 +159,22 @@
 					{subtitle}
 				</p>
 			{/if}
+
+			{#if videoSrc && callsToAction.length > 0}
+				<div class="flex gap-6" data-enter>
+					{#each callsToAction as cta, index}
+						<Button
+							href={cta.href}
+							size="xl"
+							variant={index % 2 === 0 ? "primary" : "secondary"}
+							class="text-lg px-8 py-4 font-semibold shadow-2xl">{cta.label}</Button
+						>
+					{/each}
+				</div>
+			{/if}
 		</div>
 
-		{#if callsToAction.length > 0}
+		{#if !videoSrc && callsToAction.length > 0}
 			<div class="flex gap-4" data-enter>
 				{#each callsToAction as cta, index}
 					<Button
