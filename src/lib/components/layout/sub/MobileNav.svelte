@@ -94,54 +94,86 @@
 		<meta name="theme-color" content={themeColor} />
 	{/if}
 </svelte:head>
-<!-- Mobile Nav Menu -->
+<!-- Futuristic Mobile Nav Menu -->
 <div
 	id="nav"
 	class={[
-		"items-between group/nav-list bg-background fixed inset-0 -z-10 m-0 grid h-[100dvh] content-between overflow-y-auto pt-32 transition duration-500 ease-out",
-		"pointer-events-none translate-y-[-100%] data-[show]:pointer-events-auto data-[show]:translate-y-0"
+		"items-between group/nav-list bg-black/95 backdrop-blur-2xl fixed inset-0 -z-10 m-0 grid h-[100dvh] content-between overflow-y-auto pt-32 transition duration-500 ease-out border-r-2 border-cyan-400/30",
+		"pointer-events-none translate-x-[-100%] data-[show]:pointer-events-auto data-[show]:translate-x-0"
 	]}
 	data-show={isMenuOpen || null}
 >
-	<ul class="nav-list container mx-auto divide-y *:border-gray-200">
+	<!-- Futuristic grid background -->
+	<div class="absolute inset-0 opacity-10">
+		<div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(6,182,212,0.1)_50%,transparent_100%)] bg-[length:50px_100%]"></div>
+		<div class="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.05)_50%,transparent_100%)] bg-[length:100%_30px]"></div>
+	</div>
+
+	<ul class="nav-list container mx-auto relative z-10">
 		{#each items as item, index}
 			{@render linkOrGroup(item, index)}
 		{/each}
 	</ul>
 
-	<div class="section-px section-pb container mx-auto w-full">
-		<Button size="lg" variant="primary" class="z-0 w-full md:w-auto" href={cta.href}
-			>{cta.label}</Button
-		>
+	<div class="section-px section-pb container mx-auto w-full relative z-10">
+		<!-- Futuristic CTA Button -->
+		<div class="relative group">
+			<div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-300 animate-pulse"></div>
+			<Button 
+				size="lg" 
+				variant="primary" 
+				class="relative z-0 w-full bg-black border-2 border-cyan-400/50 text-cyan-100 hover:text-white hover:bg-cyan-400/10 font-bold tracking-wider rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.5)]" 
+				href={cta.href}
+			>
+				{cta.label}
+			</Button>
+		</div>
 	</div>
 </div>
 
-<div class="flex items-center justify-end gap-2">
-	<Button size="sm" variant="secondary" href={cta.href} class="bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm font-semibold">{cta.label}</Button>
+<div class="flex items-center justify-end gap-4">
+	<!-- Futuristic CTA Button for mobile -->
+	<div class="relative group">
+		<div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-lg blur opacity-40 group-hover:opacity-60 transition duration-300"></div>
+		<Button 
+			size="sm" 
+			variant="secondary" 
+			href={cta.href} 
+			class="relative bg-black border border-cyan-400/50 text-cyan-100 hover:text-white hover:bg-cyan-400/10 font-bold tracking-wide px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm"
+		>
+			{cta.label}
+		</Button>
+	</div>
 
-	<Button
-		aria-label="Toggle nav"
-		size="lg"
-		variant="ghost"
-		hideLabel
-		suffix={IconMenu}
-		iconOnly
-		class="z-50 max-h-full text-white hover:bg-white/10"
-		onclick={() => (isMenuOpen = !isMenuOpen)}>Menu</Button
-	>
+	<!-- Futuristic Menu Button -->
+	<div class="relative group">
+		<div class="absolute -inset-1 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+		<Button
+			aria-label="Toggle nav"
+			size="lg"
+			variant="ghost"
+			hideLabel
+			suffix={IconMenu}
+			iconOnly
+			class="relative z-50 max-h-full text-white hover:bg-cyan-400/10 border border-cyan-400/30 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:text-cyan-300"
+			onclick={() => (isMenuOpen = !isMenuOpen)}
+		>
+			Menu
+		</Button>
+	</div>
 </div>
 
 {#snippet linkOrGroup(item: NavItem, index: number)}
 	{#if item.children}
-		<details class="group transition-all duration-300 ease-out">
+		<details class="group transition-all duration-300 ease-out border-b border-cyan-400/20">
 			<summary
-				class="section-px nav-item text-title2 text-foreground hover:bg-muted flex cursor-pointer list-none items-center justify-between transition-all select-none group-open:font-medium"
+				class="section-px nav-item text-title2 text-white hover:bg-cyan-400/10 flex cursor-pointer list-none items-center justify-between transition-all select-none group-open:font-bold group-open:text-cyan-300 font-bold tracking-wide"
 				>{item.label}
-				<IconChevronRight class="transition duration-300 ease-out group-open:rotate-90" /></summary
+				<IconChevronRight class="transition duration-300 ease-out group-open:rotate-90 text-cyan-400" /></summary
 			>
 
 			<ul
-				class="my-3 grid transition-all [clip-path:inset(0,0,100%,0)] group-open:[clip-path:inset(0)]"
+				class="my-3 grid transition-all [clip-path:inset(0,0,100%,0)] group-open:[clip-path:inset(0)] bg-black/50 rounded-lg mx-4"
 			>
 				{#each item.children as child, childIndex}
 					{@render linkOrGroup(child, childIndex)}
@@ -151,16 +183,19 @@
 	{:else}
 		<a
 			href={item?.href}
-			class="section-px group nav-item hover:bg-muted text-title2 flex flex-col transition-all duration-300 ease-out"
+			class="section-px group nav-item hover:bg-cyan-400/10 text-title2 flex flex-col transition-all duration-300 ease-out border-b border-cyan-400/10 relative"
 			aria-label={item.label}
 		>
+			<!-- Holographic effect -->
+			<div class="absolute left-0 top-0 w-1 h-0 bg-gradient-to-b from-cyan-400 to-blue-500 transition-all duration-300 group-hover:h-full"></div>
+			
 			<span
 				style:transition-delay="{index * 150}ms"
-				class="text-foreground transition-all duration-500 ease-out"
+				class="text-white transition-all duration-500 ease-out group-hover:text-cyan-300 font-bold tracking-wide relative z-10"
 			>
 				<span
 					style:transition-delay="{index * 50}ms"
-					class="inline-block transition duration-300 ease-out">{item.label}</span
+					class="inline-block transition duration-300 ease-out group-hover:translate-x-2">{item.label}</span
 				>
 			</span>
 		</a>

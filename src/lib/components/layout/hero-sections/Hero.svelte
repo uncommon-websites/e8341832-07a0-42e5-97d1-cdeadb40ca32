@@ -130,11 +130,11 @@
 		data-enter-container
 	>
 		<div class="max-w-6xl">
-			<h1 class="text-[clamp(4rem,12vw,14rem)] font-black leading-[0.85] tracking-tighter text-white mb-8" data-enter>
-				<span class="block drop-shadow-2xl"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
+			<h1 class="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight text-white mb-6" data-enter>
+				<span class="block drop-shadow-xl"><AnimateText text={title} staggerDelay={120} animationDuration={1000} /></span>
 			</h1>
 
-			<p class="text-3xl font-medium text-white/90 max-w-3xl mb-12 drop-shadow-lg" data-enter>
+			<p class="text-xl font-normal text-white/85 max-w-2xl mb-10 drop-shadow-md" data-enter>
 				{subtitle}
 			</p>
 

@@ -26,33 +26,37 @@
 
 <div
 	data-scroller
-	class="grid place-items-center gap-4 self-end py-4 {label ? 'sm:py-12' : 'sm:py-8'}"
+	class="relative bg-black border-y border-white/10 py-16 overflow-hidden"
 	class:!flex={layout === "horizontal"}
 	class:dark={mode === "dark"}
 	{...rest}
 >
-	{#if label}
-		<p
-			class="body-sm text-emphasis-low whitespace-nowrap"
-			class:mr-2={layout === "horizontal"}
-			class:sm:mr-4={layout === "horizontal"}
-		>
-			{label}
-		</p>
-	{/if}
-	<div class="m-auto w-full max-w-prose overflow-hidden">
-		<Marquee
-			class="mask-image h-full items-center text-gray-400 [--gap:theme(spacing.6)] sm:[--gap:theme(spacing.12)]"
-			speed={paused ? 0 : 0.1}
-		>
-			{#each logoUrls as logo}
-				<img
-					src={logo}
-					class="mx-8 h-5 w-fit object-contain opacity-70 saturate-0 dark:invert
-					"
-				/>
-			{/each}
-		</Marquee>
+	<!-- Dramatic background effects -->
+	<div class="absolute inset-0 bg-gradient-to-r from-primary-900/20 via-transparent to-secondary-900/20"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)]"></div>
+	
+	<div class="relative z-10 grid place-items-center gap-8">
+		{#if label}
+			<h2 class="text-2xl font-bold text-white tracking-tight text-center drop-shadow-lg">
+				{label}
+			</h2>
+		{/if}
+		<div class="w-full max-w-6xl overflow-hidden">
+			<Marquee
+				class="mask-image h-full items-center [--gap:theme(spacing.16)]"
+				speed={paused ? 0 : 0.08}
+			>
+				{#each logoUrls as logo}
+					<div class="mx-12 transform transition-all duration-300 hover:scale-110">
+						<img
+							src={logo}
+							class="h-12 w-fit object-contain brightness-0 invert opacity-80 hover:opacity-100 filter drop-shadow-lg"
+							alt="Company logo"
+						/>
+					</div>
+				{/each}
+			</Marquee>
+		</div>
 	</div>
 </div>
 
