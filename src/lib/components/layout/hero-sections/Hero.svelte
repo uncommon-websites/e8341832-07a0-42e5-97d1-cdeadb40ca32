@@ -140,7 +140,7 @@
 	>
 		<div class="max-w-7xl w-full">
 			<div class="space-y-8 text-left max-w-5xl">
-				<h1 class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.8] tracking-[-0.05em] text-white relative" data-enter>
+				<h1 class="text-[clamp(3rem,8vw,8rem)] font-black leading-[0.8] tracking-[-0.05em] text-white relative" data-enter>
 					<!-- Glow effect behind text -->
 					<div class="absolute inset-0 bg-gradient-to-r from-primary-400/30 via-white/20 to-secondary-400/30 blur-3xl opacity-60 scale-110"></div>
 					
